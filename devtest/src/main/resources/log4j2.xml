@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <!-- Set this path to the log directory -->
+        <Property name="log-path">C:\Anand\logs</Property>
+    </Properties>
+    <Appenders>
+        <!-- Settings for logs printed on the console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{DATE} [%t] %-5level %logger{36}::%M - %msg%n"/>
+        </Console>
+        
+        <!-- Settings for logs printed to the log file -->
+        <RollingFile name="RollingFile" fileName="${log-path}/demo.log" filePattern="${log-path}/csh-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{DATE} [%t] %-5level %logger{36}::%M - %msg%n"/>
+            <Policies>
+                <!-- A new log file will be created if the size of the log file exceeds this size -->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <!-- A maximum of 10 log files will be maintained in rolling order -->
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        
+        <!-- Set the application log level to info/debug/error/trace -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
